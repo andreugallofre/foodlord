@@ -26,7 +26,7 @@ def exctract_tags_url(url):
             print (str(tag['confidence']) + " " + tag['tag'])
             if tag['confidence'] > 80:
                 main_dish.append(tag['tag'])
-            if tag['confidence'] > 35:
+            if tag['confidence'] > AI_CONFIDENCE:
                 ingredients.append(tag['tag'])
 
         return filter_results(ingredients, main_dish)
