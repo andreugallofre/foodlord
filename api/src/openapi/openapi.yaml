@@ -1,0 +1,70 @@
+openapi: '3.0.0'
+
+info:
+  description: You don't need a maths degree for counting calories. Built in HacKCU 2019.
+  version: '1.0'
+  title: Food Lord API
+
+servers:
+  - url: http://localhost:8081
+    description: Localhost endpoint.
+
+tags:
+  - name: count
+    description: endpoint for counting calories.
+
+paths:
+  /count:
+    post:
+      tags:
+        - count
+      summary: Counting calories given an image
+      description: Invoke this endpoint to count calories given an image.
+      operationId: src.api.count.post
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CountBody"
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
+
+
+components:
+  schemas:
+    APIResponse:
+      type: object
+      properties:
+        error:
+          type: boolean
+          description: Whether or not the request was successfully processed or not.
+        message:
+          type: string
+          description: Error message if the request was unsuccessful.
+        response:
+          type: object
+          description: Contains the response data if the request was successful.
+
+    CountBody:
+      type: object
+      properties:
+        image_url:
+          type: string
+          description: Internet accessible image URL.
+        image_base64:
+          type: string
+          description: Image safe-decoded in base64.
