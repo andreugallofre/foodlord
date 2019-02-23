@@ -3,3 +3,4 @@ Flask
 Flask-Cors
 uWSGI
 uwsgitop
+requests
