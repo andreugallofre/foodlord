@@ -7,30 +7,38 @@ from PIL import Image
 
 from src import *
 from src.util import check, log
+from src.rapidapi import recipe
 
-IMAGGA_API_URL_TAGGING = 'https://imagga-api.p.rapidapi.com/tagging'
-IMAGGA_API_URL_CONTENT = 'https://imagga-api.p.rapidapi.com/content'
 
-def get_info_url(url):
-    headers = {
-        'X-RapidAPI-Key': os.environ['RAPID_API_KEY']
-    }
-    data = {
-        'url': url
-    }
+def filter_results(tag_list, main_dish):
+    result = []
+    for tag in tag_list:
+        if recipe.ingredient_exists(tag):
+            result.append(tag)
+    for tag in main_dish:
+        if tag not in IGNORED_TAGS:
+            result.append(tag)
+    return result
 
+
+def extract_tags_url(url):
+    headers = {'X-RapidAPI-Key': os.environ['RAPID_API_KEY']}
+    data = {'url': url}
     response = requests.get(IMAGGA_API_URL_TAGGING, params=data, headers=headers)
     response_json = response.json()
 
     # Extract the tags with more than 50% of confidence
-
     if 'results' in response_json:
-        result = []
+        ingredients = []
+        main_dish = []
         tags = response_json['results'][0]['tags']
         for tag in tags:
-            if tag['confidence'] > 50:
-                result.append(tag['tag'])
-        print (result)
+            print(str(tag['confidence']) + " " + tag['tag'])
+            if tag['confidence'] > 80:
+                main_dish.append(tag['tag'])
+            if tag['confidence'] > AI_CONFIDENCE:
+                ingredients.append(tag['tag'])
+        return filter_results(ingredients, main_dish)
     return None
 
 
