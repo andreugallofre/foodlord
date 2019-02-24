@@ -37,7 +37,7 @@ export const getCookie = (key) => {
 
 export const postPhoto = (data, self) => {
   return axios.post(
-    'http://localhost:8081/calories/ingredients',
+    'http://foodlord.tk:443/calories/ingredients',
     {
       'image_base64': data,
     },
@@ -59,7 +59,7 @@ export const postPhoto = (data, self) => {
 
 export const postIngredients = (list, self) => {
   return axios.post(
-    'http://localhost:8081/calories/count',
+    'http://foodlord.tk:443/calories/count',
     {
       'ingredients_list': list,
     },
@@ -83,7 +83,7 @@ export const commit = (list, self) => {
   console.log(list);
   console.log(getCookie('user'));
   return axios.post(
-    'http://localhost:8081/calories/confirm',
+    'http://foodlord.tk:443/calories/confirm',
     {
       'ingredients_list': list,
       'user_id': getCookie('user'),
@@ -105,7 +105,7 @@ export const commit = (list, self) => {
 
 var sjcl = require('sjcl');
 
-const BASE_URL = "http://localhost:8081/";
+const BASE_URL = "http://foodlord.tk:443/";
 
 
 const utils = {
