@@ -8,7 +8,7 @@ RECIPE_POOL_NUMBER = 10
 
 NUTRITIONIX_API_CALORIES = 'https://nutritionix-api.p.rapidapi.com/v1_1/search'
 
-IGNORED_TAGS = ['dish', 'nutriment', 'food', 'dinner', 'lunch', 'meal', 'tasty', 'snack food']
+IGNORED_TAGS = ['dish', 'nutriment', 'food', 'dinner', 'lunch', 'meal', 'tasty', 'snack food', 'bowl']
 
 AI_CONFIDENCE = 35
 MAIN_DISH_CONFIDENCE = 80
