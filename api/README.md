@@ -20,7 +20,7 @@ To run the server, please execute the following from the root directory:
 2. Install dependencies
 
     ```bash
-    pip3 install -r requirements.txt
+    pip3 install -r requirements.lock
     ```
 
 3. Add RAPID_API_KEY to the `api` module environment
