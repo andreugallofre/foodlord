@@ -162,6 +162,14 @@ class PhotoMenu extends Component {
                   path='camera'
                   primary
                 />
+                <RoutedButton
+                  style={STYLES.backButton}
+                  icon={<Previous color='white' />}
+                  label='Back'
+                  path='/'
+                  color={'white'}
+                  onClick={this.onPressBack}
+                />
               </Grid>
             )}
           </div>

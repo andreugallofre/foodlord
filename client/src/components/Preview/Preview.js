@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Box, Button, Grid, Text } from 'grommet';
-import { Checkmark } from "grommet-icons/es6";
+import {Checkmark, Previous} from "grommet-icons/es6";
 import { commit } from '../../utils';
 
 const STYLES = {
@@ -72,6 +72,10 @@ const STYLES = {
     fontFamily: 'helvetica',
     align: 'center',
   },
+  backButton: {
+    marginTop: '1em',
+    color: '#7D4CDB',
+  },
 };
 
 class Preview extends Component {
@@ -98,6 +102,14 @@ class Preview extends Component {
 
     this.onDone = this.onDone.bind(this);
     this.error = this.error.bind(this);
+    this.onPressBack = this.onPressBack.bind(this);
+  }
+
+  onPressBack() {
+    const ingredients = JSON.stringify(this.state.ingredientsList.map((x) => {
+      return x['ingredient'];
+    }));
+    this.props.history.push(`/recipe?ingredients=${ingredients}`);
   }
 
   error(error) {
@@ -158,6 +170,12 @@ class Preview extends Component {
               label='Save meal'
               onClick={this.onDone}
               primary
+            />
+            <Button
+              style={STYLES.backButton}
+              icon={<Previous color='#7D4CDB' />}
+              label='Back'
+              onClick={this.onPressBack}
             />
           </Grid>
         )}

@@ -50,8 +50,13 @@ export const postPhoto = (data, self) => {
         if (res.data.error) {
           self.error(res.data.message);
         } else {
-          const ingredients = JSON.stringify(res.data.response);
-          window.location.href = `${window.location.origin}/recipe?ingredients=${ingredients}`;
+          if (res.data.response.length === 0) {
+            alert('No ingredients found');
+            self.setState({ loading: false });
+          } else {
+            const ingredients = JSON.stringify(res.data.response);
+            self.props.history.push(`/recipe?ingredients=${ingredients}`);
+          }
         }
       })
       .catch(self.error);
@@ -73,7 +78,7 @@ export const postIngredients = (list, self) => {
         self.error(res.data.message);
       } else {
         const ingredients = JSON.stringify(res.data.response['ingredients']);
-        window.location.href = `${window.location.origin}/preview?ingredients=${ingredients}`;
+        self.props.history.push(`/preview?ingredients=${ingredients}`);
       }
     })
     .catch(self.error);
@@ -97,7 +102,7 @@ export const commit = (list, self) => {
       if (res.data.error) {
         self.error(res.data.message);
       } else {
-        window.location.href = `${window.location.origin}/dashboard`;
+        self.props.history.push('dashboard');
       }
     })
     .catch(self.error);

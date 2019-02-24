@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Box, Button, Grid, Text, TextInput } from 'grommet';
-import {Add, Checkmark, FormClose} from "grommet-icons/es6";
+import {Add, Checkmark, FormClose, Previous} from "grommet-icons/es6";
 import { postIngredients } from '../../utils';
 
 const STYLES = {
@@ -53,7 +53,11 @@ const STYLES = {
     marginBottom: '1em',
     fontFamily: 'helvetica',
     align: 'center',
-  }
+  },
+  backButton: {
+    marginTop: '1em',
+    color: '#7D4CDB',
+  },
 };
 
 class Recipe extends Component {
@@ -76,6 +80,11 @@ class Recipe extends Component {
     this.addIngredient = this.addIngredient.bind(this);
     this.onDone = this.onDone.bind(this);
     this.error = this.error.bind(this);
+    this.onPressBack = this.onPressBack.bind(this);
+  }
+
+  onPressBack() {
+    this.props.history.push('/');
   }
 
   error(error) {
@@ -144,6 +153,12 @@ class Recipe extends Component {
                 label='Done'
                 onClick={this.onDone}
                 primary
+              />
+              <Button
+                style={STYLES.backButton}
+                icon={<Previous color='#7D4CDB' />}
+                label='Back'
+                onClick={this.onPressBack}
               />
           </Grid>
         )}

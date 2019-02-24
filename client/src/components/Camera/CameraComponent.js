@@ -29,7 +29,6 @@ class CameraComponent extends Component {
   }
 
   error(error) {
-    console.log(error);
     alert('Something went wrong');
     this.setState({ loading: false });
   }
