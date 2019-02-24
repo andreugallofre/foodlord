@@ -17,6 +17,7 @@ class Ingredient(Base):
 
     def serialize(self):
         return dict(
+            id=self.id,
             report_id=self.report_id,
             calories=self.calories,
             name=self.name,
