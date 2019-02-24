@@ -12,6 +12,8 @@ servers:
 tags:
   - name: calories
     description: endpoint for counting calories.
+  - name: user
+    description: endpoint for managing users.
 
 paths:
   /calories/ingredients:
@@ -86,6 +88,35 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ConfirmBody"
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
+
+  /user:
+    get:
+      tags:
+        - user
+      summary: Getting user information given its id
+      description: Invoke this endpoint to get the user information given its id.
+      operationId: src.api.user.get
+      parameters:
+        - name: user_id
+          in: query
+          description: Specifies the user to get.
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
