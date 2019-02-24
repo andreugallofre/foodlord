@@ -21,22 +21,20 @@ class Register extends Component {
 	start() {
     const form = this.state;
     var self = this;
-    if (form.password != form.password2) {
-      self.props.history.push("/register");
-      alert("Passwords doesn't match");
+    if (form.password !== form.password2) {
+        self.props.history.push("/register");
+        alert("Passwords doesn't match");
     }
-    utils.postUser(form.username, form.firstname, form.lastname, form.email, form.password)
-    .then(function(response) {
-        if (response.data.success) {
-           self.props.history.push("/");
-        } else {
+    else {
+        utils.postUser(form.username, form.firstname, form.lastname, form.email, form.password)
+        .then(function(response) {
+            self.props.history.push("/");
+        })
+        .catch(function(error) {
           self.props.history.push("/register");
           alert("Username invalid");
+        });
         }
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
 	}
 
   render() {

@@ -19,15 +19,11 @@ class Login extends Component {
     var self = this;
     utils.postGetUsers(form.username, form.password)
     .then(function(response) {
-        if (response.data.success) {
-            self.props.history.push("/");
-        } else {
-            self.props.history.push("/login");
-            alert("Username or password incorrect");
-        }
+        self.props.history.push("/");
     })
     .catch(function(error) {
-        console.log(error);
+        self.props.history.push("/login");
+        alert("Username or password incorrect");
     });
 	}
 
