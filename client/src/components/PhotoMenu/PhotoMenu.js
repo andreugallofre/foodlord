@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Grid, Text, RoutedButton } from 'grommet';
 import { Attachment, Camera, Previous, Checkmark } from 'grommet-icons';
+import { getBase64, postPhoto } from '../../utils';
 
 const STYLES = {
   container: {
@@ -27,6 +28,7 @@ class PhotoMenu extends Component {
     this.state = {
       uploadFile: false,
       fileName: 'Choose file',
+      loading: false,
       file: null,
     };
 
@@ -34,6 +36,13 @@ class PhotoMenu extends Component {
     this.onPressBack = this.onPressBack.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.openInput = this.openInput.bind(this);
+    this.error = this.error.bind(this);
+  }
+
+  error(error) {
+    console.log(error);
+    alert('Something went wrong');
+    this.setState({ loading: false });
   }
 
   onInputChange(event) {
@@ -48,10 +57,22 @@ class PhotoMenu extends Component {
   }
 
   onUploadFile() {
-    const data = new FormData();
-    data.append('file', this.state.file, this.state.fileName);
-    console.log(data);
-    // TODO: POST data to servicefile
+    if (this.state.file) {
+      getBase64(this.state.file)
+        .then((data) => {
+          console.log(data);
+          postPhoto(data)
+            .then((res) => {
+              console.log(res);
+              this.setState({loading: false});
+            })
+            .catch(this.error)
+        })
+        .catch(this.error);
+      this.setState({loading: true});
+    } else {
+      alert('Choose a file');
+    }
   }
 
   onPressBack() {
@@ -59,59 +80,65 @@ class PhotoMenu extends Component {
   }
 
   render() {
-    const { uploadFile, fileName } = this.state;
+    const { uploadFile, fileName, loading } = this.state;
 
     const text = (<Text style={STYLES.text}>🥑 Upload your meal</Text>);
 
     return (
       <div>
-        {uploadFile ? (
-          <Grid style={STYLES.container}>
-            {text}
-            <div className="input-group mb-3">
-              <div className="input-group-prepend">
-                <span className="input-group-text">Upload</span>
-              </div>
-              <div className="custom-file">
-                <input
-                  type="file"
-                  className="custom-file-input"
-                  id="inputGroupFile01"
-                  onChange={this.onInputChange}
-                />
-                <label className="custom-file-label" htmlFor="inputGroupFile01">{fileName}</label>
-              </div>
-            </div>
-            <Button
-              style={STYLES.button}
-              icon={<Checkmark />}
-              label='Upload'
-              onClick={this.onUploadFile}
-              primary
-            />
-            <Button
-              style={STYLES.button}
-              icon={<Previous />}
-              label='Back'
-              onClick={this.onPressBack}
-            />
-          </Grid>
+        {loading ? (
+          <img src='https://cdn.dribbble.com/users/645440/screenshots/3266490/loader-2_food.gif' />
           ) : (
-          <Grid style={STYLES.container}>
-            {text}
-            <Button
-              style={STYLES.button}
-              icon={<Attachment />}
-              label='Photo Library'
-              onClick={this.openInput}
-            />
-            <RoutedButton
-              style={STYLES.button}
-              icon={<Camera />}
-              label='Take Photo'
-              path='camera'
-            />
-          </Grid>
+          <div>
+            {uploadFile ? (
+              <Grid style={STYLES.container}>
+                {text}
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">Upload</span>
+                  </div>
+                  <div className="custom-file">
+                    <input
+                      type="file"
+                      className="custom-file-input"
+                      id="inputGroupFile01"
+                      onChange={this.onInputChange}
+                    />
+                    <label className="custom-file-label" htmlFor="inputGroupFile01">{fileName}</label>
+                  </div>
+                </div>
+                <Button
+                  style={STYLES.button}
+                  icon={<Checkmark />}
+                  label='Upload'
+                  onClick={this.onUploadFile}
+                  primary
+                />
+                <Button
+                  style={STYLES.button}
+                  icon={<Previous />}
+                  label='Back'
+                  onClick={this.onPressBack}
+                />
+              </Grid>
+              ) : (
+              <Grid style={STYLES.container}>
+                {text}
+                <Button
+                  style={STYLES.button}
+                  icon={<Attachment />}
+                  label='Photo Library'
+                  onClick={this.openInput}
+                />
+                <RoutedButton
+                  style={STYLES.button}
+                  icon={<Camera />}
+                  label='Take Photo'
+                  path='camera'
+                />
+              </Grid>
+            )}
+          </div>
         )}
       </div>
     );
