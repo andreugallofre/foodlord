@@ -7,8 +7,8 @@ class Login extends Component {
     super(props);
     this.state = {
       login: props.login,
-      username: String,
-      password: String
+      username: "",
+      password: ""
     };
 		this.login = this.login.bind(this);
 		this.register = this.register.bind(this);
@@ -16,7 +16,10 @@ class Login extends Component {
 
 	login() {
 
-    /* Insertar comprovació de que es correcte */ 
+    var data = {
+      username: this.state.username,
+      password: this.state.password,
+    } 
 
 		this.props.history.push("/");
 	}
@@ -34,10 +37,10 @@ class Login extends Component {
           <h2> Welcome to FoodLord </h2>
             <Form>
               <FormField name="username">
-                <TextInput autoFocus onChange={this.handleChange} placeholder="Username"/>
+                <TextInput autoFocus onChange={(e) => this.setState({ username: e.target.value})} placeholder="Username"/>
               </FormField>
               <FormField name="password">
-                <TextInput type="password" onChange={this.handleChange} placeholder="Password"/>
+                <TextInput type="password" onChange={(e) => this.setState({ password: e.target.value})} placeholder="Password"/>
               </FormField>
             </Form>
             <div>

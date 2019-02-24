@@ -7,17 +7,28 @@ class Register extends Component {
     super(props);
     this.state = {
         start: props.start,
-        fistname: String,
-        lastname: String,
-        username: String,
-        email: String,
-        password: String,
-        password2: String
+        firstname: "",
+        lastname: "",
+        username: "",
+        email: "",
+        password: "",
+        password2: ""
     };
 		this.start = this.start.bind(this);
 	}
 
 	start() {
+        var data = {
+            username: this.state.username,
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            email: this.state.email,
+            password: this.state.password,
+            password2: this.state.password2
+        }
+
+        console.log(data);
+
 		this.props.history.push("/");
 	}
 
@@ -30,22 +41,22 @@ class Register extends Component {
             <h2> Register Now! </h2>
               <Form>
                 <FormField name="name">   
-                  <TextInput autoFocus onChange={this.handleChange} placeholder="First Name"/>
+                  <TextInput autoFocus onChange={(e) => this.setState({ firstname: e.target.value})} placeholder="First Name"/>
                 </FormField>
                 <FormField name="lastname">   
-                  <TextInput onChange={this.handleChange} placeholder="Last Name"/>
+                  <TextInput onChange={(e) => this.setState({ lastname: e.target.value})} placeholder="Last Name"/>
                 </FormField>
                 <FormField name="username">
-                  <TextInput onChange={this.handleChange} placeholder="Username"/>
+                  <TextInput onChange={(e) => this.setState({ username: e.target.value})} placeholder="Username"/>
                 </FormField>
                 <FormField name="email">   
-                  <TextInput onChange={this.handleChange} placeholder="Email"/>
+                  <TextInput onChange={(e) => this.setState({ email: e.target.value})} placeholder="Email"/>
                 </FormField>
                 <FormField name="password">
-                  <TextInput type="password" onChange={this.handleChange} placeholder="Password"/>
+                  <TextInput type="password" onChange={(e) => this.setState({ password: e.target.value})} placeholder="Password"/>
                 </FormField>
                 <FormField name="password2">
-                  <TextInput type="password" onChange={this.handleChange} placeholder="Repeat password"/>
+                  <TextInput type="password" onChange={(e) => this.setState({ password2: e.target.value})} placeholder="Repeat password"/>
                 </FormField>
               </Form>
               <div>
