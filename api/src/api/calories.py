@@ -23,4 +23,9 @@ def ingredients_post():
 
 
 def count_post():
-    return 'OK', 200
+    request_body = request.json
+    if not check.exist('ingredients_list', request_body):
+        return response.build(error=True, error_message='No ingredients specified.')
+
+    response_dict = {'total_calories': 0.0, 'ingredients': []}
+    return response.build(error=False, response=response_dict)
