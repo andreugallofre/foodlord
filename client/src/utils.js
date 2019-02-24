@@ -38,13 +38,39 @@ export const postPhoto = (data, self) => {
         if (res.data.error) {
           self.error(res.data.message);
         } else {
-          const ingredients = compactIngredients(res.data.response);
-          console.log(ingredients);
+          const ingredients = JSON.stringify(res.data.response);
           window.location.href = `${window.location.origin}/recipe?ingredients=${ingredients}`;
         }
       })
       .catch(self.error);
 };
+
+export const postIngredients = (list, self) => {
+  return axios.post(
+    'http://localhost:8081/calories/count',
+    {
+      'ingredients_list': list,
+    },
+    { headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((res) => {
+      self.setState({ loading: false });
+      if (res.data.error) {
+        self.error(res.data.message);
+      } else {
+        const ingredients = JSON.stringify(res.data.response['ingredients']);
+        window.location.href = `${window.location.origin}/preview?ingredients=${ingredients}`;
+      }
+    })
+    .catch(self.error);
+};
+
+export const commit = (list, self) => {
+  return 1;
+}
 
 var sjcl = require('sjcl');
 
