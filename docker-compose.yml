@@ -1,0 +1,36 @@
+version: '3.5'
+services:
+  # API
+  foodlord-api-app:
+    image: foodlord-api-app
+    container_name: foodlord-api-app
+    env_file:
+      - api/.env
+    build:
+      context: api
+      dockerfile: Dockerfile
+    networks:
+      - foodlord
+    ports:
+      - 9081:9081
+      - 3081:3081
+    restart: always
+    depends_on:
+      - foodlord-api-nginx
+  foodlord-api-nginx:
+    image: foodlord-api-nginx
+    container_name: foodlord-api-nginx
+    build:
+      context: api
+      dockerfile: Dockerfile.nginx
+    networks:
+      - foodlord
+    ports:
+      - 8081:8081
+    restart: always
+
+# FoodLord network
+networks:
+  foodlord:
+    name: foodlord
+    driver: bridge
