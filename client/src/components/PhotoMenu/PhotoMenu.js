@@ -60,13 +60,7 @@ class PhotoMenu extends Component {
     if (this.state.file) {
       getBase64(this.state.file)
         .then((data) => {
-          console.log(data);
-          postPhoto(data)
-            .then((res) => {
-              console.log(res);
-              this.setState({loading: false});
-            })
-            .catch(this.error)
+          postPhoto(data, this);
         })
         .catch(this.error);
       this.setState({loading: true});
@@ -87,8 +81,8 @@ class PhotoMenu extends Component {
     return (
       <div>
         {loading ? (
-          <img src='https://cdn.dribbble.com/users/645440/screenshots/3266490/loader-2_food.gif' />
-          ) : (
+          <img src='https://cdn.dribbble.com/users/645440/screenshots/3266490/loader-2_food.gif' alt='' />
+        ) : (
           <div>
             {uploadFile ? (
               <Grid style={STYLES.container}>

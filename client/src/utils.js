@@ -15,7 +15,14 @@ export const getBase64 = (file) => {
   });
 };
 
-export const postPhoto = (data) => {
+const compactIngredients = (is) => {
+  let str = '';
+  const concatenate = s => str = `${str};${s.replace(' ', '_')}`;
+  is.forEach(concatenate);
+  return str.substring(1);
+};
+
+export const postPhoto = (data, self) => {
   return axios.post(
     'http://localhost:8081/calories/ingredients',
     {
@@ -25,5 +32,16 @@ export const postPhoto = (data) => {
         'accept': 'application/json',
         'Content-Type': 'application/json',
       }
-    });
+    })
+      .then((res) => {
+        self.setState({ loading: false });
+        if (res.data.error) {
+          self.error(res.data.message);
+        } else {
+          const ingredients = compactIngredients(res.data.response);
+          console.log(ingredients);
+          window.location.href = `${window.location.origin}/recipe?ingredients=${ingredients}`;
+        }
+      })
+      .catch(self.error);
 };

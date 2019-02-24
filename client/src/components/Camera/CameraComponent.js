@@ -36,13 +36,7 @@ class CameraComponent extends Component {
 
   onTakePhoto(raw) {
     const data = raw.split('data:image/png;base64,')[1];
-    console.log(data);
-    postPhoto(data)
-      .then((res) => {
-        console.log(res);
-        this.setState({ loading: false });
-      })
-      .catch(this.error);
+    postPhoto(data, this);
     this.setState({ loading: true });
   }
 
@@ -52,7 +46,7 @@ class CameraComponent extends Component {
     return (
       <div>
         {loading ? (
-          <img src='https://cdn.dribbble.com/users/645440/screenshots/3266490/loader-2_food.gif' />
+          <img src='https://cdn.dribbble.com/users/645440/screenshots/3266490/loader-2_food.gif' alt='' />
         ) : (
           <Grid>
             <div className="App">
