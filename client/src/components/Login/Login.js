@@ -34,20 +34,21 @@ class Login extends Component {
           <h2> Welcome to FoodLord </h2>
             <Form>
               <FormField name="username">
-                <TextInput autoFocus onChange={this.handleChange} placeholder="username"/>
+                <TextInput autoFocus onChange={this.handleChange} placeholder="Username"/>
               </FormField>
               <FormField name="password">
-                <TextInput type="password" onChange={this.handleChange} placeholder="******"/>
+                <TextInput type="password" onChange={this.handleChange} placeholder="Password"/>
               </FormField>
             </Form>
             <div>
               <Button
                 label="Login"
                 onClick={this.login}
+                primary={true}
               />
             </div>
             <div>
-              <RoutedButton primary={true} label="Register now" path="/register" />
+              <RoutedButton label="Register now" path="/register" />
             </div>
           </Box>
         )}
