@@ -14,6 +14,8 @@ tags:
     description: endpoint for counting calories.
   - name: user
     description: endpoint for managing users.
+  - name: dashboard
+    description: endpoint for managing the user dashboard.
 
 paths:
   /calories/ingredients:
@@ -173,6 +175,35 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/LogInBody"
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
+
+  /dashboard:
+    get:
+      tags:
+        - dashboard
+      summary: Getting user information given its id for the dashboard data
+      description: Invoke this endpoint to get the user information given its id for the dashboard data.
+      operationId: src.api.dashboard.get
+      parameters:
+        - name: user_id
+          in: query
+          description: Specifies the user to get.
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
