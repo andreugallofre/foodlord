@@ -7,6 +7,8 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/atsuky/foodlord.svg)](https://GitHub.com/atsuky/foodlord/graphs/contributors/)
 [![GitHub license](https://img.shields.io/github/license/atsuky/foodlord.svg)](https://github.com/atsuky/foodlord/blob/master/LICENSE)
 
+[Devpost](https://devpost.com/software/food-lord) | [Demo](http://foodlord.tk) | [API](https://rapidapi.com/AlbertSuarez/api/food-lord1)
+
 🥑 You don't need a maths degree for counting calories.
 
 ## Inspiration
