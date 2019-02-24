@@ -20,3 +20,7 @@ def ingredients_post():
         return response.build(error=False, response=tags_list)
     else:
         return response.build(error=True, error_message='Invalid input image.')
+
+
+def count_post():
+    return 'OK', 200
