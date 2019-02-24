@@ -2,21 +2,6 @@ import React, { Component } from 'react';
 import { Dashboard, Camera } from 'grommet-icons';
 import { Box, Button, Grommet, ResponsiveContext } from 'grommet';
 
-const theme = {
-  global: {
-	
-	colors: {
-  	brand: '#228BE6',
-  },
-	
-	font: {
-  	family: 'Roboto',
-    size: '14px',
-    height: '20px',
-    },
-	},
-};
-
 class Home extends Component { 
 	constructor(props) {
 		super(props);
@@ -34,7 +19,7 @@ class Home extends Component {
 
   render() {
     return (
-    	<Grommet theme={theme} full>
+    	<Grommet full>
       <ResponsiveContext.Consumer>
       {size => (
         <Box fill>
