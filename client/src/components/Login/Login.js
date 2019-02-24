@@ -6,7 +6,7 @@ import '../../styles/commonStyles.css';
 const STYLES = {
   background: {
     position: 'absolute',
-    backgroundImage: "url('https://github.com/atsuky/foodlord/blob/master/client/resources/background.gif?raw=true')",
+    backgroundImage: "url('https://github.com/atsuky/foodlord/blob/master/client/resources/back1_mid.gif?raw=true')",
     opacity: 0.6,
     left: 0,
     right: 0,
@@ -44,7 +44,7 @@ const STYLES = {
     marginTop: '1em',
   },
   input: {
-    color: '#7D4CDB',
+    color: 'white',
     background: 'rgba(0, 0, 0, 0)',
     border: '0px solid',
     fontSize: '20px',
@@ -110,14 +110,14 @@ class Login extends Component {
           <Button
             label="Log In"
             onClick={this.login}
-            primary={true}
+            primary
           />
         </div>
         <div style={STYLES.buttonContainer}>
           <RoutedButton
             color={'white'}
             style={STYLES.registerButton}
-            primary={true}
+            primary
             label="Sign Up"
             path="/register"
           />

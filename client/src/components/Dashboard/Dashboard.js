@@ -4,6 +4,46 @@ import { spec } from './spec';
 import axios from "axios";
 import {getCookie} from "../../utils";
 
+const STYLES = {
+  container: {
+    padding: '2em',
+    fontFamily: 'helvetica',
+    fontWeight: 100,
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  avocado: {
+    alignSelf: 'center',
+    fontSize: '64px',
+  },
+  text: {
+    alignSelf: 'center',
+    fontSize: '24px',
+    marginBottom: '2em',
+  },
+  backButton: {
+    marginBottom: '1em',
+    color: 'white',
+  },
+  button: {
+    marginBottom: '1em',
+  },
+  background: {
+    position: 'absolute',
+    backgroundImage: "url('https://github.com/atsuky/foodlord/blob/master/client/resources/background2.gif?raw=true')",
+    opacity: 0.6,
+    left: 0,
+    right: 0,
+    top:0,
+    bottom: 0,
+    backgroundPosition: 'center',
+    backgroundSize: "100% 100%",
+    zIndex: -9999,
+  },
+};
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -46,6 +86,15 @@ class Dashboard extends React.Component {
     spec.data[0] = data;
 
     const key = Date.now();
+
+    const header = (
+      <div>
+        <div style={STYLES.header}>
+          <p style={STYLES.avocado}>🥑</p>
+          <p style={STYLES.title}>Ingredients</p>
+        </div>
+      </div>
+    );
 
     return (
       <div>
