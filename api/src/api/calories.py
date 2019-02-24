@@ -12,7 +12,7 @@ from src.rapidapi import imagga, nutritionix
 
 def get(image_url):
     tags_list = imagga.extract_tags_url(image_url)
-    if not tags_list:
+    if tags_list is None:
         return response.build(error=True, error_message='Invalid input image.')
 
     response_dict = {'total_calories': 0.0, 'ingredients': []}
@@ -35,7 +35,7 @@ def ingredients_post():
     else:
         tags_list = imagga.extract_tags_base64(request_body['image_base64'])
 
-    if tags_list:
+    if tags_list is not None:
         return response.build(error=False, response=tags_list)
     else:
         return response.build(error=True, error_message='Invalid input image.')

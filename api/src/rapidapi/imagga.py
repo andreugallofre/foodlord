@@ -65,7 +65,7 @@ def __extract_tags(response_json):
             if tag['confidence'] > AI_CONFIDENCE:
                 ingredients.append(tag['tag'])
         return __filter_results(ingredients, main_dish)
-    return None
+    return []
 
 
 def extract_tags_url(url):
