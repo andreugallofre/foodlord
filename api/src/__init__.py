@@ -6,6 +6,8 @@ RECIPE_API_URL_INGREDIENTS = 'https://webknox-recipes.p.rapidapi.com/recipes'
 RECIPE_API_URL_AUTOCOMPLETE = 'https://webknox-recipes.p.rapidapi.com/food/ingredients/autocomplete'
 RECIPE_POOL_NUMBER = 10
 
+NUTRITIONIX_API_CALORIES = 'https://nutritionix-api.p.rapidapi.com/v1_1/search'
+
 IGNORED_TAGS = ['dish', 'nutriment', 'food', 'dinner', 'lunch', 'meal', 'tasty', 'snack food']
 
 AI_CONFIDENCE = 35
@@ -18,6 +20,7 @@ __all__ = [
     'RECIPE_API_URL_INGREDIENTS',
     'RECIPE_API_URL_AUTOCOMPLETE',
     'RECIPE_POOL_NUMBER',
+    'NUTRITIONIX_API_CALORIES',
     'IGNORED_TAGS',
     'AI_CONFIDENCE',
     'MAIN_DISH_CONFIDENCE'
