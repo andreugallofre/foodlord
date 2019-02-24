@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, FormField, TextInput, Box, Button, Grommet, ResponsiveContext } from 'grommet';
 import './Register.css'
 import utils from '../../utils.js'
+import {setCookie} from "../../utils";
 
 class Register extends Component {
 	constructor(props) {
@@ -26,15 +27,16 @@ class Register extends Component {
         alert("Passwords doesn't match");
     }
     else {
-        utils.postUser(form.username, form.firstname, form.lastname, form.email, form.password)
+      utils.postUser(form.username, form.firstname, form.lastname, form.email, form.password)
         .then(function(response) {
-            self.props.history.push("/");
+          setCookie('user', response.data.response);
+          self.props.history.push("/");
         })
         .catch(function(error) {
           self.props.history.push("/register");
           alert("Username invalid");
         });
-        }
+    }
 	}
 
   render() {
@@ -46,16 +48,16 @@ class Register extends Component {
             <div className="background"/>
             <h2> Register Now! </h2>
             <Form>
-              <FormField name="name">   
+              <FormField name="name">
                 <TextInput autoFocus onChange={(e) => this.setState({ firstname: e.target.value})} placeholder="First Name"/>
               </FormField>
-              <FormField name="lastname">   
+              <FormField name="lastname">
                 <TextInput onChange={(e) => this.setState({ lastname: e.target.value})} placeholder="Last Name"/>
               </FormField>
               <FormField name="username">
                 <TextInput onChange={(e) => this.setState({ username: e.target.value})} placeholder="Username"/>
               </FormField>
-              <FormField name="email">   
+              <FormField name="email">
                 <TextInput onChange={(e) => this.setState({ email: e.target.value})} placeholder="Email"/>
               </FormField>
               <FormField name="password">
@@ -68,7 +70,7 @@ class Register extends Component {
             <div className="buttons">
               <Button
                 label="Start!"
-                onClick={this.start}                
+                onClick={this.start}
                 primary={true}
               />
             </div>

@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { Dashboard, Camera } from 'grommet-icons';
 import { Box, Button, Grommet, ResponsiveContext } from 'grommet';
+import { getCookie } from '../../utils';
 
-class Home extends Component { 
+class Home extends Component {
 	constructor(props) {
 		super(props);
-		this.dashboard = this.dashboard.bind(this);
-		this.camera = this.camera.bind(this);
+		if (!getCookie('user')) {
+			this.props.history.push("/login");
+		} else {
+			this.dashboard = this.dashboard.bind(this);
+			this.camera = this.camera.bind(this);
+		}
 	}
 
 	dashboard() {
@@ -14,7 +19,7 @@ class Home extends Component {
 	}
 
 	camera() {
-		this.props.history.push("/camera");
+		this.props.history.push("/upload");
 	}
 
   render() {
@@ -27,7 +32,7 @@ class Home extends Component {
 						<Button
 							icon={<Camera color='plain' size='xlarge'/>}
 							onClick={this.camera}
-						/> 
+						/>
 						<Button
 							icon={<Dashboard color='plain' size='xlarge'/>}
 							onClick={this.dashboard}
