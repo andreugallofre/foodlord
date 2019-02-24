@@ -41,7 +41,7 @@ ALTER TABLE foodlord_user
 CREATE TABLE foodlord_report
 (
     id integer NOT NULL DEFAULT nextval('foodlord_report_id_seq'::regclass),
-    name character varying(100) NOT NULL COLLATE pg_catalog."default",
+    time timestamp without time zone NOT NULL,
     calories numeric NOT NULL,
     username character varying(100) NOT NULL COLLATE pg_catalog."default",
     CONSTRAINT foodlord_report_pkey PRIMARY KEY (id),
@@ -78,3 +78,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE foodlord_ingredient
     OWNER to foodlord;
+
+
+INSERT INTO foodlord_user VALUES ('albert', 'Albert', 'Suarez', 'alsumo95@gmail.com', '72d0166b5707d129dc321e56692fe454c034552ee9e2b38f5a7f1c1306a632ea')
