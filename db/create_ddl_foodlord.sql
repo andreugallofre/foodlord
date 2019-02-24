@@ -76,5 +76,5 @@ WITH (
 )
 TABLESPACE pg_default;
 
-ALTER TABLE foodlord_report
+ALTER TABLE foodlord_ingredient
     OWNER to foodlord;
