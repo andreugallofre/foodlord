@@ -29,6 +29,21 @@ services:
       - 8081:8081
     restart: always
 
+  # Client
+  foodlord-client-app:
+    container_name: foodlord-client-app
+    build:
+      context: client
+      dockerfile: Dockerfile
+    volumes:
+      - './client:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+    restart: always
+
 # FoodLord network
 networks:
   foodlord:
