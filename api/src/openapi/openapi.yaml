@@ -18,6 +18,35 @@ tags:
     description: endpoint for managing the user dashboard.
 
 paths:
+  /calories:
+    post:
+      tags:
+        - calories
+      summary: Getting ingredients and calories given an image
+      description: Invoke this endpoint to get ingredients and calories given an image.
+      operationId: src.api.calories.post
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IngredientsBody"
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
+
   /calories/ingredients:
     post:
       tags:
