@@ -24,10 +24,10 @@ ALTER SEQUENCE foodlord_ingredient_id_seq
 CREATE TABLE foodlord_user
 (
     username character varying(100) NOT NULL COLLATE pg_catalog."default",
-    first_name character varying(100) COLLATE pg_catalog."default",
-    last_name character varying(100) COLLATE pg_catalog."default",
-    email character varying(100) COLLATE pg_catalog."default",
-    password character varying(500) COLLATE pg_catalog."default",
+    first_name character varying(100) NOT NULL COLLATE pg_catalog."default",
+    last_name character varying(100) NOT NULL COLLATE pg_catalog."default",
+    email character varying(100) NOT NULL COLLATE pg_catalog."default",
+    password character varying(500) NOT NULL COLLATE pg_catalog."default",
     CONSTRAINT foodlord_user_pkey PRIMARY KEY (username)
 )
 WITH (
@@ -41,8 +41,8 @@ ALTER TABLE foodlord_user
 CREATE TABLE foodlord_report
 (
     id integer NOT NULL DEFAULT nextval('foodlord_report_id_seq'::regclass),
-    name character varying(100) COLLATE pg_catalog."default",
-    calories numeric,
+    name character varying(100) NOT NULL COLLATE pg_catalog."default",
+    calories numeric NOT NULL,
     username character varying(100) NOT NULL COLLATE pg_catalog."default",
     CONSTRAINT foodlord_report_pkey PRIMARY KEY (id),
     CONSTRAINT foodlord_report_username_fkey FOREIGN KEY (username)
@@ -63,8 +63,8 @@ CREATE TABLE foodlord_ingredient
 (
     id integer NOT NULL DEFAULT nextval('foodlord_ingredient_id_seq'::regclass),
     report_id integer NOT NULL,
-    name character varying(100) COLLATE pg_catalog."default",
-    calories numeric,
+    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    calories numeric NOT NULL,
     CONSTRAINT foodlord_ingredient_pkey PRIMARY KEY (id),
     CONSTRAINT foodlord_ingredient_report_fkey FOREIGN KEY (report_id)
         REFERENCES foodlord_report (id) MATCH SIMPLE
