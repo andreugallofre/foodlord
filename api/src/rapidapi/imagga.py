@@ -2,6 +2,7 @@ import base64
 import uuid
 import requests
 import os
+import multiprocessing.dummy as mp
 
 from PIL import Image
 
@@ -42,13 +43,13 @@ def __upload_image(image_base64):
 
 
 def __filter_results(tag_list, main_dish):
-    result = []
-    for tag in tag_list:
-        if recipe.ingredient_exists(tag):
-            result.append(tag)
+    with mp.Pool(RECIPE_POOL_NUMBER) as pool:
+        result = list(pool.imap(recipe.ingredient_exists, tag_list))
+        result = [res for res in result if res]
     for tag in main_dish:
         if tag not in IGNORED_TAGS:
             result.append(tag)
+    result = list(set(result))
     return result
 
 

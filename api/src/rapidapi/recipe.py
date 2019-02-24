@@ -46,5 +46,5 @@ def ingredient_exists(ingredient):
     response_json = response.json()
     for ing in response_json:
         if ingredient.lower() == ing['name'].lower():
-            return True
-    return False
+            return ingredient
+    return None
