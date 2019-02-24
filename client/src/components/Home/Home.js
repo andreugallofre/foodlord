@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { BarChart, Camera } from 'grommet-icons';
-import { Box, Button } from 'grommet';
+import { Button } from 'grommet';
 import { getCookie } from '../../utils';
 
 const STYLES = {
 	background: {
 		position: 'absolute',
-		backgroundImage: "url('https://github.com/atsuky/foodlord/blob/master/client/resources/background2.gif?raw=tru')",
-		opacity: 0.5,
+		backgroundImage: "url('https://github.com/atsuky/foodlord/blob/master/client/resources/background2.gif?raw=true')",
+		opacity: 0.6,
 		left: 0,
 		right: 0,
 		top:0,
@@ -54,11 +54,11 @@ class Home extends Component {
 			<div style={STYLES.container}>
 				<div style={STYLES.background} />
 				<Button
-					icon={<Camera color='plain' size='xlarge'/>}
+					icon={<Camera color='#333333' size='xlarge'/>}
 					onClick={this.camera}
 				/>
 				<Button
-					icon={<BarChart color='plain' size='xlarge'/>}
+					icon={<BarChart color='#333333' size='xlarge'/>}
 					onClick={this.dashboard}
 				/>
 			</div>

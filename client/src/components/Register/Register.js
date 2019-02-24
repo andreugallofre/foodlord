@@ -7,8 +7,8 @@ import {setCookie} from "../../utils";
 const STYLES = {
   background: {
     position: 'absolute',
-    backgroundImage: "url('https://github.com/atsuky/foodlord/blob/master/client/resources/background.gif?raw=tru')",
-    opacity: 0.5,
+    backgroundImage: "url('https://github.com/atsuky/foodlord/blob/master/client/resources/background.gif?raw=true')",
+    opacity: 0.6,
     left: 0,
     right: 0,
     top:0,
@@ -24,6 +24,7 @@ const STYLES = {
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
+    alignItems: 'center',
     padding: '1em',
     fontFamily: 'helvetica',
     fontWeight: 100,
@@ -107,7 +108,6 @@ class Register extends Component {
         <Form>
           <FormField name="name">
             <input
-              autoFocus
               onChange={(e) => this.setState({ firstname: e.target.value})}
               placeholder="First Name"
               style={STYLES.input}
