@@ -41,7 +41,7 @@ ALTER TABLE foodlord_user
 CREATE TABLE foodlord_report
 (
     id integer NOT NULL DEFAULT nextval('foodlord_report_id_seq'::regclass),
-    name character varying(100) NOT NULL COLLATE pg_catalog."default",
+    time timestamp without time zone NOT NULL,
     calories numeric NOT NULL,
     username character varying(100) NOT NULL COLLATE pg_catalog."default",
     CONSTRAINT foodlord_report_pkey PRIMARY KEY (id),
