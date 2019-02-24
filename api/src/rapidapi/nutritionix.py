@@ -6,12 +6,16 @@ from src.util import log
 
 
 def __api_request(ingredient):
-    headers = {'X-RapidAPI-Key': os.environ['RAPID_API_KEY']}
     data = {
+        'appId': 'cd730bdb',
+        'appKey': '0555561b71a1ebfa3479c8fd1d966b8c',
         'prhase': ingredient,
-        'fields': 'item_name,brand_name,nf_calories'
+        'fields': ['item_name', 'brand_name', 'nf_calories'],
+        'filters': {
+            'item_type': 2
+        }
     }
-    response = requests.get(NUTRITIONIX_API_CALORIES + "/" + ingredient, params=data, headers=headers)
+    response = requests.post("https://api.nutritionix.com/v1_1/search", json=data)
     response_json = response.json()
     return response_json
 
