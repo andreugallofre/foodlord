@@ -1,5 +1,11 @@
+import datetime
+
 from flask import request
 
+from src.db.sqlalchemy import db_session
+from src.model.ingredient import Ingredient
+from src.model.report import Report
+from src.model.user import User
 from src.util import check, response, log
 from src.rapidapi import imagga, nutritionix
 
@@ -50,5 +56,31 @@ def confirm_post():
         if not check.exist('calories', ingredient) or not check.exist('ingredient', ingredient):
             return response.build(error=True, error_message='No calories or ingredient specified.')
 
-    response_dict = {'report_id': None}
-    return response.build(error=False, response=response_dict)
+    user = db_session().query(User).filter_by(username=request_body['user_id']).first()
+    if not user:
+        return response.build(error=True, error_message='No user found with the given username.')
+    else:
+        calories = sum([ingredient['calories'] for ingredient in request_body['ingredients_list']])
+        report = Report(
+            username=request_body['user_id'],
+            calories=calories,
+            time=datetime.datetime.now()
+        )
+        db_session().add(report)
+        db_session().flush()
+        if not report.id:
+            return response.build(error=True, error_message='Error adding an ingredient.')
+
+        for ing in request_body['ingredients_list']:
+            ingredient = Ingredient(
+                report_id=report.id,
+                calories=ing['calories'],
+                name=ing['ingredient']
+            )
+            db_session().add(ingredient)
+            db_session().flush()
+            if not ingredient.id:
+                return response.build(error=True, error_message='Error adding an ingredient.')
+
+        db_session().commit()
+        return response.build(error=False, response=dict(report_id=report.id))
