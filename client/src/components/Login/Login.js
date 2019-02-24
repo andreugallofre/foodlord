@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, FormField, TextInput, RoutedButton, Box, Button, Grommet, ResponsiveContext } from 'grommet';
 import './Login.css'
+import utils from '../../utils.js'
 
 class Login extends Component { 
 	constructor(props) {
@@ -11,16 +12,23 @@ class Login extends Component {
       password: ""
     };
 		this.login = this.login.bind(this);
-		this.register = this.register.bind(this);
 	}
 
 	login() {
-
-    this.props.history.push("/");
-	}
-
-	register() {
-		this.props.history.push("/register");
+    const form = this.state;
+    var self = this;
+    utils.postGetUsers(form.username, form.password)
+    .then(function(response) {
+        if (response.data.success) {
+            self.props.history.push("/");
+        } else {
+            self.props.history.push("/login");
+            alert("Username or password incorrect");
+        }
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
 	}
 
   render() {
@@ -28,8 +36,7 @@ class Login extends Component {
     	<Grommet full>
         <ResponsiveContext.Consumer>
         {size => (
-          
-            <Box fill align='center' justify='center'>
+          <Box fill align='center' justify='center'>
             <div className="background"/>
             <h2> Welcome to FoodLord </h2>
             <Form>
@@ -51,9 +58,6 @@ class Login extends Component {
               <RoutedButton label="Register now" path="/register" />
             </div>
           </Box>
-          
-          
-          
         )}
         </ResponsiveContext.Consumer>
       </Grommet>
