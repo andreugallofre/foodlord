@@ -6,26 +6,44 @@ import { postIngredients } from '../../utils';
 const STYLES = {
   container: {
     padding: '2em',
+    fontWeight: 100,
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  avocado: {
+    alignSelf: 'center',
+    fontSize: '64px',
+  },
+  title: {
+    alignSelf: 'center',
+    fontSize: '24px',
+    marginBottom: '2em',
   },
   box: {
     marginBottom: '1em',
     marginTop: '1em',
     padding: '1em',
-    border: '2px solid #7D4CDB',
+    border: '2px solid #555555',
     borderRadius: '18px',
     justifyContent: 'space-between',
     alignContent: 'center',
+    backgroundColor: '#F8F8F8',
   },
   input: {
     marginBottom: '1em',
     marginTop: '1em',
     padding: '1em',
+    display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignContent: 'center',
+    alignItems: 'center',
   },
   text: {
     fontFamily: 'helvetica',
     fontSize: '16px',
+    color: '#555555',
     paddingTop: '-20px',
   },
   textInput: {
@@ -35,12 +53,6 @@ const STYLES = {
     marginBottom: '1em',
     fontFamily: 'helvetica',
     align: 'center',
-  },
-  add: {
-    marginTop: '30px',
-    marginBottom: '1em',
-    marginLeft: '1em',
-    marginRight: '1em',
   }
 };
 
@@ -91,12 +103,21 @@ class Recipe extends Component {
 
   render() {
     const { loading, value } = this.state;
+    const header = (
+      <div>
+        <div style={STYLES.header}>
+          <p style={STYLES.avocado}>🥑</p>
+          <p style={STYLES.title}>Ingredients</p>
+        </div>
+      </div>
+    );
     return (
       <div>
         {loading ? (
           <img src='https://cdn.dribbble.com/users/69182/screenshots/2179253/animated_loading__by__amiri.gif' alt='' />
         ) : (
           <Grid style={STYLES.container}>
+            {header}
               {this.state.ingredientsList.map((ing, i) => {
                 const content = ing.charAt(0).toUpperCase() + ing.substr(1);
                 return (
@@ -108,15 +129,15 @@ class Recipe extends Component {
                   </Box>
                 );
               })}
-              <Box direction='row' style={STYLES.input}>
+              <div style={STYLES.input}>
                 <TextInput
                   style={STYLES.textInput}
                   value={value}
                   onChange={event => this.setState({value: event.target.value})}
                   onSubmit={this.addIngredient}
                 />
-                <Add style={STYLES.add} onClick={this.addIngredient} />
-              </Box>
+                <Add onClick={this.addIngredient} />
+              </div>
               <Button
                 style={STYLES.button}
                 icon={<Checkmark />}
