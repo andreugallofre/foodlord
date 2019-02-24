@@ -5,3 +5,5 @@ uWSGI
 uwsgitop
 requests
 Pillow
+SQLAlchemy
+psycopg2-binary

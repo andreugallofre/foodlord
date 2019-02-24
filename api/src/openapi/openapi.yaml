@@ -12,6 +12,8 @@ servers:
 tags:
   - name: calories
     description: endpoint for counting calories.
+  - name: user
+    description: endpoint for managing users.
 
 paths:
   /calories/ingredients:
@@ -101,6 +103,91 @@ paths:
                 type: string
                 description: Error description.
 
+  /user:
+    get:
+      tags:
+        - user
+      summary: Getting user information given its id
+      description: Invoke this endpoint to get the user information given its id.
+      operationId: src.api.user.get
+      parameters:
+        - name: user_id
+          in: query
+          description: Specifies the user to get.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
+    post:
+      tags:
+        - user
+      summary: Creating a user given its information
+      description: Invoke this endpoint to create a user given its information.
+      operationId: src.api.user.post
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserBody"
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
+
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: Logging in a user given a username and a password
+      description: Invoke this endpoint to log in a user given its information.
+      operationId: src.api.user.login_post
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LogInBody"
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
+
 components:
   schemas:
     APIResponse:
@@ -155,3 +242,32 @@ components:
         user_id:
           type: string
           description: User identifier.
+
+    UserBody:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: User first name.
+        last_name:
+          type: string
+          description: User last name.
+        email:
+          type: string
+          description: User email.
+        username:
+          type: string
+          description: User name.
+        password:
+          type: string
+          description: User SHA256 encoded password.
+
+    LogInBody:
+      type: object
+      properties:
+        username:
+          type: string
+          description: User name.
+        password:
+          type: string
+          description: User SHA256 encoded password.

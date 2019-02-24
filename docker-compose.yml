@@ -44,6 +44,19 @@ services:
       - NODE_ENV=development
     restart: always
 
+  # DB
+  foodlord-db:
+    image: foodlord-db
+    container_name: foodlord-db
+    build:
+      context: db
+      dockerfile: Dockerfile
+    restart: always
+    networks:
+      - foodlord
+    ports:
+      - 5432:5432
+
 # FoodLord network
 networks:
   foodlord:
