@@ -74,7 +74,7 @@ export const commit = (list, self) => {
 
 var sjcl = require('sjcl');
 
-const BASE_URL = "http://0.0.0.0:8081/";
+const BASE_URL = "http://localhost:8081/";
 
 
 const utils = {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, FormField, TextInput, RoutedButton, Box, Button, Grommet, ResponsiveContext } from 'grommet';
 import './Login.css'
+import utils from '../../utils.js'
 
 class Login extends Component { 
 	constructor(props) {
@@ -11,21 +12,19 @@ class Login extends Component {
       password: ""
     };
 		this.login = this.login.bind(this);
-		this.register = this.register.bind(this);
 	}
 
 	login() {
-
-    var data = {
-      username: this.state.username,
-      password: this.state.password,
-    } 
-
-		this.props.history.push("/");
-	}
-
-	register() {
-		this.props.history.push("/register");
+    const form = this.state;
+    var self = this;
+    utils.postGetUsers(form.username, form.password)
+    .then(function(response) {
+        self.props.history.push("/");
+    })
+    .catch(function(error) {
+        self.props.history.push("/login");
+        alert("Username or password incorrect");
+    });
 	}
 
   render() {
@@ -34,7 +33,8 @@ class Login extends Component {
         <ResponsiveContext.Consumer>
         {size => (
           <Box fill align='center' justify='center'>
-          <h2> Welcome to FoodLord </h2>
+            <div className="background"/>
+            <h2> Welcome to FoodLord </h2>
             <Form>
               <FormField name="username">
                 <TextInput autoFocus onChange={(e) => this.setState({ username: e.target.value})} placeholder="Username"/>
@@ -43,14 +43,14 @@ class Login extends Component {
                 <TextInput type="password" onChange={(e) => this.setState({ password: e.target.value})} placeholder="Password"/>
               </FormField>
             </Form>
-            <div>
+            <div className="buttons">
               <Button
                 label="Login"
                 onClick={this.login}
                 primary={true}
               />
             </div>
-            <div>
+            <div className="buttons">
               <RoutedButton label="Register now" path="/register" />
             </div>
           </Box>
