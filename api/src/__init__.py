@@ -8,6 +8,7 @@ RECIPE_API_URL_AUTOCOMPLETE = 'https://webknox-recipes.p.rapidapi.com/food/ingre
 IGNORED_TAGS = ['dish', 'nutriment', 'food', 'dinner', 'lunch', 'meal', 'tasty', 'snack food']
 
 AI_CONFIDENCE = 35
+MAIN_DISH_CONFIDENCE = 80
 
 __all__ = [
     'IMAGGA_API_URL_TAGGING',
@@ -16,5 +17,6 @@ __all__ = [
     'RECIPE_API_URL_INGREDIENTS',
     'RECIPE_API_URL_AUTOCOMPLETE',
     'IGNORED_TAGS',
-    'AI_CONFIDENCE'
+    'AI_CONFIDENCE',
+    'MAIN_DISH_CONFIDENCE'
 ]
