@@ -1,6 +1,6 @@
 from flask import request
 
-from src.util import check, response
+from src.util import check, response, log
 from src.rapidapi import imagga, nutritionix
 
 
@@ -28,11 +28,16 @@ def count_post():
         return response.build(error=True, error_message='No ingredients specified.')
 
     response_dict = {'total_calories': 0.0, 'ingredients': []}
-    for ingredient in request_body['ingredients_list']:
-        calories_count = nutritionix.get_ingredient_calories(ingredient)
-        response_dict['total_calories'] += calories_count
-        response_dict['ingredients'].append({'calories': calories_count, 'ingredient': ingredient})
-    return response.build(error=False, response=response_dict)
+    try:
+        for ingredient in request_body['ingredients_list']:
+            calories_count = nutritionix.get_ingredient_calories(ingredient)
+            response_dict['total_calories'] += calories_count
+            response_dict['ingredients'].append({'calories': calories_count, 'ingredient': ingredient})
+        return response.build(error=False, response=response_dict)
+    except Exception as e:
+        log.error('Error while counting calories.')
+        log.exception(e)
+        return response.build(error=True, error_message='Unexpected error.')
 
 
 def confirm_post():
