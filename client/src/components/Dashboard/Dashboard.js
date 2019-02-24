@@ -62,7 +62,7 @@ class Dashboard extends React.Component {
 
   componentWillMount() {
     const user = getCookie('user');
-    axios.get(`http://localhost:8081/dashboard?user_id=${user}`)
+    axios.get(`http://foodlord.tk:443/dashboard?user_id=${user}`)
       .then((res) => {
         this.setState({
           data: {
