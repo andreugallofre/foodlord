@@ -10,18 +10,8 @@ from src.util import check, response, log
 from src.rapidapi import imagga, nutritionix
 
 
-def post():
-    request_body = request.json
-    if not check.exist('image_url', request_body) and not check.exist('image_base64', request_body):
-        return response.build(error=True, error_message='No specified image in the request body.')
-    if check.exist('image_url', request_body) and check.exist('image_base64', request_body):
-        return response.build(error=True, error_message='Both image_url and image_base64 specified.')
-
-    if check.exist('image_url', request_body):
-        tags_list = imagga.extract_tags_url(request_body['image_url'])
-    else:
-        tags_list = imagga.extract_tags_base64(request_body['image_base64'])
-
+def get(image_url):
+    tags_list = imagga.extract_tags_url(image_url)
     if not tags_list:
         return response.build(error=True, error_message='Invalid input image.')
 

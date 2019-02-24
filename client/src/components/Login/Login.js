@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, FormField, RoutedButton, Button } from 'grommet';
 import utils, {setCookie} from '../../utils.js';
-import './Login.css';
+import '../../styles/commonStyles.css';
 
 const STYLES = {
   background: {
