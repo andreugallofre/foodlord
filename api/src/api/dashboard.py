@@ -21,7 +21,7 @@ def get(user_id):
 
         response_list = []
         for key, value in response_dict.items():
-            response_list.append({'date': key, 'calories': value})
+            response_list.append({'date': key, 'calories': int(value)})
         return response.build(error=False, response=response_list)
     except Exception as e:
         log.error('Exception while getting data for the dashboard.')
