@@ -131,6 +131,33 @@ paths:
               schema:
                 type: string
                 description: Error description.
+    post:
+      tags:
+        - user
+      summary: Creating a user given its information
+      description: Invoke this endpoint to create a user given its information.
+      operationId: src.api.user.post
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserBody"
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
 
 components:
   schemas:
@@ -186,3 +213,22 @@ components:
         user_id:
           type: string
           description: User identifier.
+
+    UserBody:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: User first name.
+        last_name:
+          type: string
+          description: User last name.
+        email:
+          type: string
+          description: User email.
+        username:
+          type: string
+          description: User name.
+        password:
+          type: string
+          description: User SHA256 encoded password.
