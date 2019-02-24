@@ -29,3 +29,17 @@ def count_post():
 
     response_dict = {'total_calories': 0.0, 'ingredients': []}
     return response.build(error=False, response=response_dict)
+
+
+def confirm_post():
+    request_body = request.json
+    if not check.exist('ingredients_list', request_body):
+        return response.build(error=True, error_message='No ingredients specified.')
+    if not check.exist('user_id', request_body):
+        return response.build(error=True, error_message='No user specified.')
+    for ingredient in request_body['ingredients_list']:
+        if not check.exist('calories', ingredient) or not check.exist('ingredient', ingredient):
+            return response.build(error=True, error_message='No calories or ingredient specified.')
+
+    response_dict = {'report_id': None}
+    return response.build(error=False, response=response_dict)

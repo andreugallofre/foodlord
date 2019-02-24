@@ -72,6 +72,34 @@ paths:
                 type: string
                 description: Error description.
 
+  /calories/confirm:
+    post:
+      tags:
+        - calories
+      summary: Confirming calories for a user given a list of ingredients and its id
+      description: Invoke this endpoint to confirm or commit for a user a list of ingredients and calories.
+      operationId: src.api.calories.confirm_post
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConfirmBody"
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
 
 components:
   schemas:
@@ -106,3 +134,24 @@ components:
           description: List of ingredients.
           items:
             type: string
+
+    ConfirmBody:
+      type: object
+      properties:
+        ingredients_list:
+          type: array
+          description: List of ingredients and calories.
+          items:
+            type: object
+            properties:
+              ingredient:
+                type: string
+                description: Ingredient name.
+              calories:
+                type: number
+                format: float
+                example: 1
+                description: Ingredient calories.
+        user_id:
+          type: string
+          description: User identifier.
