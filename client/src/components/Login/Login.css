@@ -1,27 +1,4 @@
-.buttons {
-    padding-top: 10px;
-    font-family: Helvetica;
-}
-
-h2 {
-    font-family: Helvetica;
-    margin-bottom: 30px;
-}
-
-Form {
-    font-family: Helvetica;
-}
-
-.background {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top:0;
-    bottom: 0;
-    background-image: url('../../imatges/background2.jpg');
-    background-repeat  : 'no-repeat';
-    background-position: 'center';
-    background-size: 100% 100%;
-    opacity: 0.5;
-    z-index: -9999;
+::placeholder {
+    color: #eeeeee;
+    opacity: 1; /* Firefox */
 }
