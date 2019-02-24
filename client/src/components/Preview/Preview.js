@@ -1,37 +1,74 @@
 import React, { Component } from 'react';
-import { Box, Button, Grid, Text, TextInput } from 'grommet';
+import { Box, Button, Grid, Text } from 'grommet';
 import { Checkmark } from "grommet-icons/es6";
 import { commit } from '../../utils';
 
 const STYLES = {
   container: {
     padding: '2em',
+    fontWeight: 100,
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  avocado: {
+    alignSelf: 'center',
+    fontSize: '64px',
+  },
+  title: {
+    alignSelf: 'center',
+    fontSize: '24px',
+    marginBottom: '2em',
   },
   box: {
-    marginBottom: '1em',
+    marginBottom: '0.5em',
+    borderBottom: 'solid 1px #999999',
+    paddingBottom: '0.25em',
     marginTop: '1em',
-    padding: '1em',
+    paddingLeft: '1em',
+    paddingRight: '1em',
+    display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignContent: 'center',
+    alignItems: 'center',
+  },
+  totalBox: {
+    marginBottom: '0.5em',
+    marginTop: '1em',
+    paddingLeft: '1em',
+    paddingRight: '1em',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   input: {
     marginBottom: '1em',
     marginTop: '1em',
-    padding: '1em',
-    justifyContent: 'space-between',
-    alignContent: 'center',
   },
   text: {
     fontFamily: 'helvetica',
     fontSize: '16px',
+    color: '#333333',
   },
-  text2: {
-    fontFamily: 'helvetica',
+  caloriesText: {
+    fontFamily: 'monospace',
     fontSize: '14px',
-    color: '#444'
+    color: '#555555',
+  },
+  totalText: {
+    fontFamily: 'helvetica',
+    fontSize: '20px',
+    color: '#333333',
+  },
+  totalCaloriesText: {
+    fontFamily: 'monospace',
+    fontSize: '16px',
+    color: '#555555',
   },
   button: {
-    marginBottom: '1em',
+    marginTop: '2em',
     fontFamily: 'helvetica',
     align: 'center',
   },
@@ -75,25 +112,46 @@ class Preview extends Component {
   }
 
   render() {
-    const { loading } = this.state;
+    const { loading, ingredientsList } = this.state;
+    let total = 0;
+    for (let i = 0; i < ingredientsList.length; ++i) {
+      total = total + ingredientsList[i].calories;
+    }
+    const header = (
+      <div>
+        <div style={STYLES.header}>
+          <p style={STYLES.avocado}>🥑</p>
+          <p style={STYLES.title}>Preview</p>
+        </div>
+      </div>
+    );
     return (
       <div>
         {loading ? (
           <img src='https://cdn.dribbble.com/users/69182/screenshots/2179253/animated_loading__by__amiri.gif' alt='' />
         ) : (
           <Grid style={STYLES.container}>
-            {this.state.ingredientsList.map((ing, i) => {
+            {header}
+            {ingredientsList.map((ing, i) => {
               return (
                 <Box direction='row' key={i} style={STYLES.box}>
                   <Text style={STYLES.text}>
                     {ing['ingredient']}
                   </Text>
-                  <Text style={STYLES.text2}>
+                  <Text style={STYLES.caloriesText}>
                     {`${parseFloat(Math.round(ing['calories'] * 100) / 100).toFixed(2)} cal`}
                   </Text>
                 </Box>
               );
             })}
+            <Box direction='row' style={STYLES.totalBox}>
+              <Text style={STYLES.totalText}>
+                {'TOTAL'}
+              </Text>
+              <Text style={STYLES.totalCaloriesText}>
+                {`${parseFloat(Math.round(total * 100) / 100).toFixed(2)} cal`}
+              </Text>
+            </Box>
             <Button
               style={STYLES.button}
               icon={<Checkmark />}

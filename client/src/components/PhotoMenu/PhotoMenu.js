@@ -6,19 +6,40 @@ import { getBase64, postPhoto } from '../../utils';
 const STYLES = {
   container: {
     padding: '2em',
+    fontFamily: 'helvetica',
+    fontWeight: 100,
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  avocado: {
+    alignSelf: 'center',
+    fontSize: '64px',
   },
   text: {
-    align: 'center',
-    fontFamily: 'helvetica',
+    alignSelf: 'center',
     fontSize: '24px',
-    justify: 'center',
     marginBottom: '2em',
-    marginTop: '2em',
+  },
+  backButton: {
+    marginBottom: '1em',
+    color: 'white',
   },
   button: {
     marginBottom: '1em',
-    fontFamily: 'helvetica',
-    align: 'center',
+  },
+  background: {
+    position: 'absolute',
+    backgroundImage: "url('https://github.com/atsuky/foodlord/blob/master/client/resources/background2.gif?raw=true')",
+    opacity: 0.6,
+    left: 0,
+    right: 0,
+    top:0,
+    bottom: 0,
+    backgroundPosition: 'center',
+    backgroundSize: "100% 100%",
+    zIndex: -9999,
   },
 };
 
@@ -76,7 +97,15 @@ class PhotoMenu extends Component {
   render() {
     const { uploadFile, fileName, loading } = this.state;
 
-    const text = (<Text style={STYLES.text}>🥑 Upload your meal</Text>);
+    const header = (
+      <div>
+        <div style={STYLES.background} />
+        <div style={STYLES.header}>
+          <p style={STYLES.avocado}>🥑</p>
+          <p style={STYLES.text}>Upload your meal</p>
+        </div>
+      </div>
+    );
 
     return (
       <div>
@@ -86,7 +115,7 @@ class PhotoMenu extends Component {
           <div>
             {uploadFile ? (
               <Grid style={STYLES.container}>
-                {text}
+                {header}
                 <div className="input-group mb-3">
                   <div className="input-group-prepend">
                     <span className="input-group-text">Upload</span>
@@ -105,30 +134,33 @@ class PhotoMenu extends Component {
                   style={STYLES.button}
                   icon={<Checkmark />}
                   label='Upload'
-                  onClick={this.onUploadFile}
                   primary
+                  onClick={this.onUploadFile}
                 />
                 <Button
-                  style={STYLES.button}
-                  icon={<Previous />}
+                  style={STYLES.backButton}
+                  icon={<Previous color='white' />}
                   label='Back'
+                  color={'white'}
                   onClick={this.onPressBack}
                 />
               </Grid>
               ) : (
               <Grid style={STYLES.container}>
-                {text}
+                {header}
                 <Button
                   style={STYLES.button}
                   icon={<Attachment />}
                   label='Photo Library'
                   onClick={this.openInput}
+                  primary
                 />
                 <RoutedButton
                   style={STYLES.button}
                   icon={<Camera />}
                   label='Take Photo'
                   path='camera'
+                  primary
                 />
               </Grid>
             )}
