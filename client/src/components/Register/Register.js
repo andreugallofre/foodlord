@@ -18,18 +18,19 @@ class Register extends Component {
 	}
 
 	start() {
-        var data = {
-            username: this.state.username,
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            email: this.state.email,
-            password: this.state.password,
-            password2: this.state.password2
-        }
-
-        console.log(data);
-
-		this.props.history.push("/");
+        const form = this.state;
+        var self = this;
+        utils.postUser(form.username, form.firstname, form.lastname, form.email, form.password)
+        .then(function(response) {
+            if (response.data.success) {
+                self.props.history.push("/");
+            } else {
+                self.props.history.push("/register");
+            }
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
 	}
 
   render() {
