@@ -52,10 +52,10 @@ export const spec = {
           "y2": {"scale": "yscale", "value": 0}
         },
         "update": {
-          "fill": {"value": "steelblue"}
+          "fill": {"value": "purple"}
         },
         "hover": {
-          "fill": {"value": "red"}
+          "fill": {"value": "green"}
         }
       }
     },

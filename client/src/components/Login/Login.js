@@ -6,7 +6,7 @@ import '../../styles/commonStyles.css';
 const STYLES = {
   background: {
     position: 'absolute',
-    backgroundImage: "url('https://github.com/atsuky/foodlord/blob/master/client/resources/back1_mid.gif?raw=true')",
+    backgroundImage: "url('https://github.com/atsuky/foodlord/blob/master/client/resources/back1r_mid.gif?raw=true')",
     opacity: 0.6,
     left: 0,
     right: 0,
