@@ -4,7 +4,7 @@ from src.util import check, response
 from src.rapidapi import imagga
 
 
-def post():
+def ingredients_post():
     request_body = request.json
     if not check.exist('image_url', request_body) and not check.exist('image_base64', request_body):
         return response.build(error=True, error_message='No specified image in the request body.')
