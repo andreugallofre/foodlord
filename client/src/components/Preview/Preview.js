@@ -48,7 +48,7 @@ class Preview extends Component {
         .map((ing )=> {
           return {
             'ingredient': ing['ingredient'].charAt(0).toUpperCase() + ing['ingredient'].substr(1),
-            'calories': parseFloat(Math.round(ing['calories'] * 100) / 100).toFixed(2)
+            'calories': ing['calories']
           };
         });
     }
@@ -89,7 +89,7 @@ class Preview extends Component {
                     {ing['ingredient']}
                   </Text>
                   <Text style={STYLES.text2}>
-                    {`${ing['calories']} cal`}
+                    {`${parseFloat(Math.round(ing['calories'] * 100) / 100).toFixed(2)} cal`}
                   </Text>
                 </Box>
               );

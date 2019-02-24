@@ -15,11 +15,24 @@ export const getBase64 = (file) => {
   });
 };
 
-const compactIngredients = (is) => {
-  let str = '';
-  const concatenate = s => str = `${str};${s.replace(' ', '_')}`;
-  is.forEach(concatenate);
-  return str.substring(1);
+export const setCookie = (key, value) => {
+  let cookies = {};
+  try {
+    cookies = JSON.parse(document.cookie);
+  } catch {
+    // do nothing
+  }
+  cookies[key] = value;
+  document.cookie = JSON.stringify(cookies);
+};
+
+export const getCookie = (key) => {
+  try {
+    const cookies = JSON.parse(document.cookie);
+    return cookies[key];
+  } catch {
+    return false;
+  }
 };
 
 export const postPhoto = (data, self) => {
@@ -34,7 +47,6 @@ export const postPhoto = (data, self) => {
       }
     })
       .then((res) => {
-        self.setState({ loading: false });
         if (res.data.error) {
           self.error(res.data.message);
         } else {
@@ -57,7 +69,6 @@ export const postIngredients = (list, self) => {
       }
     })
     .then((res) => {
-      self.setState({ loading: false });
       if (res.data.error) {
         self.error(res.data.message);
       } else {
@@ -69,8 +80,28 @@ export const postIngredients = (list, self) => {
 };
 
 export const commit = (list, self) => {
-  return 1;
-}
+  console.log(list);
+  console.log(getCookie('user'));
+  return axios.post(
+    'http://localhost:8081/calories/confirm',
+    {
+      'ingredients_list': list,
+      'user_id': getCookie('user'),
+    },
+    { headers: {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((res) => {
+      if (res.data.error) {
+        self.error(res.data.message);
+      } else {
+        window.location.href = `${window.location.origin}/dashboard`;
+      }
+    })
+    .catch(self.error);
+};
 
 var sjcl = require('sjcl');
 

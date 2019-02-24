@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Form, FormField, TextInput, RoutedButton, Box, Button, Grommet, ResponsiveContext } from 'grommet';
 import './Login.css'
-import utils from '../../utils.js'
+import utils, {setCookie} from '../../utils.js'
 
-class Login extends Component { 
+class Login extends Component {
 	constructor(props) {
     super(props);
     this.state = {
@@ -18,13 +18,15 @@ class Login extends Component {
     const form = this.state;
     var self = this;
     utils.postGetUsers(form.username, form.password)
-    .then(function(response) {
+      .then((response) => {
+        setCookie('user', response.data.response);
         self.props.history.push("/");
-    })
-    .catch(function(error) {
+      })
+      .catch((error) => {
+        console.log(error);
         self.props.history.push("/login");
         alert("Username or password incorrect");
-    });
+      });
 	}
 
   render() {
