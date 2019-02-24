@@ -2,7 +2,7 @@ from flask import request
 
 from src.util import response
 from src.model.user import User
-from src.db.sqlachemy import db_session
+from src.db.sqlalchemy import db_session
 
 
 def get(user_id):
@@ -53,7 +53,6 @@ def put():
     db_session().commit()
     
     return response.build(error=False, response='OK' + user) 
-   
 
 
 def login_post():
