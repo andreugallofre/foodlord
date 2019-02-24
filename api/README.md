@@ -23,7 +23,13 @@ To run the server, please execute the following from the root directory:
     pip3 install -r requirements.txt
     ```
 
-3. Run API server as a python module
+3. Add RAPID_API_KEY to the `api` module environment
+
+    ```bash
+    echo RAPID_API_KEY={YOUR_CLIENT_KEY} > .env
+    ```
+
+4. Run API server as a python module
 
     ```bash
     python3 -m src

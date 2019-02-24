@@ -1,7 +1,7 @@
 openapi: '3.0.0'
 
 info:
-  description: You don't need a maths degree for counting calories. Built in HacKCU 2019.
+  description: You don't need a maths degree for counting calories. Built in HacKCU V.
   version: '1.0'
   title: Food Lord API
 
@@ -10,17 +10,46 @@ servers:
     description: Localhost endpoint.
 
 tags:
-  - name: count
+  - name: calories
     description: endpoint for counting calories.
 
 paths:
-  /count:
+  /calories/ingredients:
     post:
       tags:
-        - count
-      summary: Counting calories given an image
-      description: Invoke this endpoint to count calories given an image.
-      operationId: src.api.count.post
+        - calories
+      summary: Getting ingredients given an image
+      description: Invoke this endpoint to get ingredients given an image.
+      operationId: src.api.calories.ingredients_post
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IngredientsBody"
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
+
+  /calories/count:
+    post:
+      tags:
+        - calories
+      summary: Counting calories given a list of ingredients
+      description: Invoke this endpoint to count calories given a list of ingredients.
+      operationId: src.api.calories.count_post
       requestBody:
         required: true
         description: Body wrapper for the request.
@@ -43,6 +72,34 @@ paths:
                 type: string
                 description: Error description.
 
+  /calories/confirm:
+    post:
+      tags:
+        - calories
+      summary: Confirming calories for a user given a list of ingredients and its id
+      description: Invoke this endpoint to confirm or commit for a user a list of ingredients and calories.
+      operationId: src.api.calories.confirm_post
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConfirmBody"
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
 
 components:
   schemas:
@@ -59,7 +116,7 @@ components:
           type: object
           description: Contains the response data if the request was successful.
 
-    CountBody:
+    IngredientsBody:
       type: object
       properties:
         image_url:
@@ -68,3 +125,33 @@ components:
         image_base64:
           type: string
           description: Image safe-decoded in base64.
+
+    CountBody:
+      type: object
+      properties:
+        ingredients_list:
+          type: array
+          description: List of ingredients.
+          items:
+            type: string
+
+    ConfirmBody:
+      type: object
+      properties:
+        ingredients_list:
+          type: array
+          description: List of ingredients and calories.
+          items:
+            type: object
+            properties:
+              ingredient:
+                type: string
+                description: Ingredient name.
+              calories:
+                type: number
+                format: float
+                example: 1
+                description: Ingredient calories.
+        user_id:
+          type: string
+          description: User identifier.
