@@ -159,6 +159,35 @@ paths:
                 type: string
                 description: Error description.
 
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: Logging in a user given a username and a password
+      description: Invoke this endpoint to log in a user given its information.
+      operationId: src.api.user.login_post
+      requestBody:
+        required: true
+        description: Body wrapper for the request.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LogInBody"
+      responses:
+        200:
+          description: Standard Food Lord API JSON response. You should check the `error` attribute to determine if there was an error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIResponse'
+        default:
+          description: Unexpected error.
+          content:
+            application/text:
+              schema:
+                type: string
+                description: Error description.
+
 components:
   schemas:
     APIResponse:
@@ -226,6 +255,16 @@ components:
         email:
           type: string
           description: User email.
+        username:
+          type: string
+          description: User name.
+        password:
+          type: string
+          description: User SHA256 encoded password.
+
+    LogInBody:
+      type: object
+      properties:
         username:
           type: string
           description: User name.
