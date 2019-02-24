@@ -78,3 +78,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE foodlord_ingredient
     OWNER to foodlord;
+
+
+INSERT INTO foodlord_user VALUES ('albert', 'Albert', 'Suarez', 'alsumo95@gmail.com', '72d0166b5707d129dc321e56692fe454c034552ee9e2b38f5a7f1c1306a632ea')
