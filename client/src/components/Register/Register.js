@@ -3,7 +3,7 @@ import { Form, FormField, TextInput, Box, Button, Grommet, ResponsiveContext } f
 import './Register.css'
 import utils from '../../utils.js'
 
-class Register extends Component { 
+class Register extends Component {
 	constructor(props) {
     super(props);
     this.state = {

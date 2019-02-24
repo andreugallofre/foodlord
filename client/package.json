@@ -31,6 +31,7 @@
     "react-bootstrap": "^1.0.0-beta.5",
     "react-html5-camera-photo": "^1.2.9",
     "react-router-dom": "^4.3.1",
+    "sjcl": "^1.0.8",
     "styled-components": "^4.1.3"
   }
 }

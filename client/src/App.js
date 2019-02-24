@@ -6,7 +6,8 @@ import PhotoMenu from './components/PhotoMenu/PhotoMenu.js';
 import CameraComponent from './components/Camera/CameraComponent.js';
 import Dashboard from './components/Dashboard/Dashboard.js';
 import Recipe from './components/Recipe/Recipe.js';
-import Register from './components/Register/Register.js'
+import Register from './components/Register/Register.js';
+import Preview from './components/Preview/Preview.js';
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
           <Route path="/recipe" exact component={Recipe} />
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
+          <Route path="/preview" exact component={Preview} />
         </div>
       </Router>
     );
